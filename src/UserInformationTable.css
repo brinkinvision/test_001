@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+  max-width: 1200px;
+  border-collapse: collapse;
+}
+
+/* th, td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+th {
+  cursor: col-resize;
+  min-width: 50px;
+} */
+
+th {
+  border: 1px solid #dddddd;
+  resize: horizontal;
+  overflow: auto;
+  min-width: 50px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  resize: horizontal;
+  overflow: auto;
+  min-width: 50px;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './UserInformationTable.css'
 
 const UserInformationTable = () => {
   const [users, setUsers] = useState([]);

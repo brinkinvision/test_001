@@ -55,9 +55,13 @@ const UserInformationTable = () => {
   const handleRowClick = (userInfo) => {
     setModalContent(
       <div>
-        <p>Name: {userInfo.firstName} {userInfo.lastName}</p>
-        <p>Age: {userInfo.age}</p>
-        <p>Email: Presumed Email Here</p>
+        <p>ФИО: {userInfo.firstName} {userInfo.lastName} {userInfo.maidenName}</p>
+        <p>Возраст: {userInfo.age}</p>
+        <p>Адрес: {userInfo.address.city}, {userInfo.address.address}</p>
+        <p>Рост: {userInfo.height}</p>
+        <p>Вес: {userInfo.weight}</p>
+        <p>Номер телефона: {userInfo.phone}</p>
+        <p>Email: {userInfo.email}</p>
       </div>
     );
   };
@@ -72,12 +76,12 @@ const UserInformationTable = () => {
         column === 1 ? a.age :
         column === 2 ? a.gender :
         column === 3 ? a.phone :
-          `${a.address.city}, ${a.address.country}`;
+          `${a.address.city}, ${a.address.address}`;
       const y = column === 0 ? `${b.firstName} ${b.lastName}` :
         column === 1 ? b.age :
         column === 2 ? b.gender :
         column === 3 ? b.phone :
-          `${b.address.city}, ${b.address.country}`;
+          `${b.address.city}, ${b.address.address}`;
 
       if (direction === 'asc') {
         return x > y ? 1 : -1;
@@ -120,7 +124,7 @@ const UserInformationTable = () => {
         <option value="gender">Gender</option>
         <option value="phone">Phone Number</option>
         <option value="address.city">City</option>
-        <option value="address.country">Country</option>
+        <option value="address.address">Country</option>
       </select>
       <input type="text" placeholder="Search..." onChange={handleSearchValueChange} />
       <button onClick={handleSearch}>Search</button>
@@ -141,7 +145,7 @@ const UserInformationTable = () => {
               <td>{user.age}</td>
               <td>{user.gender}</td>
               <td>{user.phone}</td>
-              <td>{`${user.address.city}, ${user.address.country}`}</td>
+              <td>{`${user.address.city}, ${user.address.address}`}</td>
             </tr>
           ))}
         </tbody>

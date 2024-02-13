@@ -6,9 +6,10 @@ const UserInformationTable = () => {
   const [searchColumn, setSearchColumn] = useState('key');
   const [searchValue, setSearchValue] = useState('');
   const [sortColumn, setSortColumn] = useState(0);
-  const [sortDirection, setSortDirection] = useState('asc');
+  const [sortDirection, setSortDirection] = useState('default');
   const [modalContent, setModalContent] = useState(null);
   const [originalUsers, setOriginalUsers] = useState([]);
+  // const [isFiltering, setIsFiltering] = useState(false);
 
   useEffect(() => {
     fetch('https://dummyjson.com/users')
@@ -20,14 +21,25 @@ const UserInformationTable = () => {
       .catch(error => console.error('Error:', error));
   }, []);
 
+  const clearFilters = () => {
+    setSearchColumn('key');
+    setSearchValue('');
+    setSortColumn(0);
+    setSortDirection('default');
+    setModalContent(null);
+    setIsFiltering(false);
+    setUsers(originalUsers);
+    setFilteredUsers(originalUsers);
+  };
+
   const handleSortColumnChange = (e) => { // обновленный обработчик события
     if (parseInt(e.target.value) === sortColumn) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc'); // меняем направление сортировки при повторном выборе того же столбца
     } else {
       setSortColumn(parseInt(e.target.value));
-      setSortDirection('asc'); // сбрасываем направление сортировки при выборе нового столбца
+      setSortDirection('default'); // сбрасываем направление сортировки при выборе нового столбца
     }
-    sortTable(parseInt(e.target.value), 'asc');
+    sortTable(parseInt(e.target.value), 'default');
   };
 
   const handleSearchColumnChange = (e) => {
@@ -103,45 +115,70 @@ const UserInformationTable = () => {
 
   return (
     <div>
+      <div>
+      <label>Сортировать по: </label>
       <select onChange={handleSortColumnChange} value={sortColumn}>
-        <option value={0}>Full Name</option>
-        <option value={1}>Age</option>
-        <option value={2}>Gender</option>
-        <option value={3}>Phone Number</option>
-        <option value={4}>Address</option>
-        <option value={-1}>None</option>
+        <option value={0}>ФИО</option>
+        <option value={1}>Возраст</option>
+        <option value={2}>Пол</option>
+        <option value={3}>Номер телефона</option>
+        <option value={4}>Адрес</option>
+        
       </select>
       <select onChange={handleSortDirectionChange} value={sortDirection}>
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-        <option value="default">None</option>
+      <option value="default">Без сортировки</option>
+        <option value="asc">По возрастанию</option>
+        <option value="desc">По убыванию</option>
+         
       </select>
-      <select onChange={handleSearchColumnChange} value={searchColumn}>
-        <option value="key">Search by...</option>
-        <option value="firstName">First Name</option>
-        <option value="lastName">Last Name</option>
-        <option value="age">Age</option>
-        <option value="gender">Gender</option>
-        <option value="phone">Phone Number</option>
-        <option value="address.city">City</option>
-        <option value="address.address">Country</option>
+      </div>
+      
+
+      
+      <form onSubmit={event => {
+  event.preventDefault();
+  clearFilters();
+}}>
+  <label htmlFor="searchInput">Поиск: </label>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search..."
+    onChange={handleSearchValueChange}
+    value={searchValue}
+  />
+
+<select onChange={handleSearchColumnChange} value={searchColumn}>
+        <option value="key">Искать по...</option>
+        <option value="firstName">Имя</option>
+        <option value="lastName">Фамилия</option>
+        <option value="maidenName">Отчество</option>
+        <option value="age">Возраст</option>
+        <option value="gender">Пол</option>
+        <option value="phone">Номер телефона</option>
+        <option value="address.city">Город</option>
+        <option value="address.address">Улица</option>
       </select>
-      <input type="text" placeholder="Search..." onChange={handleSearchValueChange} />
-      <button onClick={handleSearch}>Search</button>
+
+  <button type="submit">Очистить</button>
+</form>
+
+      {/* <input type="text" placeholder="Search..." onChange={handleSearchValueChange} /> */}
+      {/* <button onClick={handleSearch}>Search</button> */}
       <table>
         <thead>
           <tr>
-            <th>Full Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Phone Number</th>
-            <th>Address</th>
+            <th>ФИО</th>
+            <th>Возраст</th>
+            <th>Пол</th>
+            <th>Номер телефона</th>
+            <th>Адрес</th>
           </tr>
         </thead>
         <tbody>
           {filteredUsers.map((user, index) => (
             <tr key={index} onClick={() => handleRowClick(user)}>
-              <td>{user.firstName} {user.lastName}</td>
+              <td>{user.firstName} {user.lastName} {user.maidenName}</td>
               <td>{user.age}</td>
               <td>{user.gender}</td>
               <td>{user.phone}</td>
@@ -154,7 +191,7 @@ const UserInformationTable = () => {
         <div>
           <div style={{ display: 'block', position: 'fixed', zIndex: 1, left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0,0.4)' }}>
             <div style={{ backgroundColor: '#fefefe', margin: '15% auto', padding: 20, border: '1px solid #888', width: '80%' }}>
-              <span onClick={closeModal} style={{ color: '#aaa', float: 'right', fontSize: 28, fontWeight: 'bold' }}>&times;</span>
+              <span className="close-modal" onClick={closeModal} style={{ color: '#aaa', float: 'right', fontSize: 28, fontWeight: 'bold' }}>&times;</span>
               {modalContent}
             </div>
           </div>

@@ -66,6 +66,10 @@ const UserInformationTable = () => {
           return user[searchColumn] === parseInt(value);
         } else if (searchColumn === 'gender') {
           return user[searchColumn] === value;
+        } else if (searchColumn === 'address.city') { // Check specifically for the city
+          return user.address.city.toLowerCase().includes(value.toLowerCase());
+        } else if (searchColumn === 'address.address') { // Check specifically for the street
+          return user.address.address.toLowerCase().includes(value.toLowerCase());
         } else {
           return user[searchColumn].toString().toLowerCase().includes(value.toLowerCase());
         }

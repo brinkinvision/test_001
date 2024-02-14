@@ -32,6 +32,11 @@ const UserInformationTable = () => {
     setFilteredUsers(originalUsers);
   };
 
+  const handleClear = () => {
+    setSearchValue('');
+    setUsers(originalUsers);
+  };
+
   const handleSortColumnChange = (e) => { // обновленный обработчик события
     if (parseInt(e.target.value) === sortColumn) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc'); // меняем направление сортировки при повторном выборе того же столбца
@@ -52,15 +57,22 @@ const UserInformationTable = () => {
   };
 
   const handleSearchValueChange = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  const handleSearch = () => {
-    if (searchColumn && searchValue) {
-      fetch(`https://dummyjson.com/users/filter?${searchColumn}=${searchValue}`)
-        .then(response => response.json())
-        .then(data => setUsers(data.users))
-        .catch(error => console.error('Error:', error));
+    const value = e.target.value;
+    setSearchValue(value);
+  
+    if (searchColumn !== 'key' && value) {
+      const filteredUsers = originalUsers.filter(user => {
+        if (searchColumn === 'age') {
+          return user[searchColumn] === parseInt(value);
+        } else if (searchColumn === 'gender') {
+          return user[searchColumn] === value;
+        } else {
+          return user[searchColumn].toString().toLowerCase().includes(value.toLowerCase());
+        }
+      });
+      setUsers(filteredUsers);
+    } else {
+      setUsers(originalUsers);
     }
   };
 
@@ -141,12 +153,13 @@ const UserInformationTable = () => {
 }}>
   <label htmlFor="searchInput">Поиск: </label>
   <input
-    type="text"
-    id="searchInput"
-    placeholder="Search..."
-    onChange={handleSearchValueChange}
-    value={searchValue}
-  />
+  type="text"
+  id="searchInput"
+  placeholder="Search..."
+  onChange={handleSearchValueChange}
+  value={searchValue}
+/>
+  {/* // e.target.value */}
 
 <select onChange={handleSearchColumnChange} value={searchColumn}>
         <option value="key">Искать по...</option>
@@ -160,7 +173,7 @@ const UserInformationTable = () => {
         <option value="address.address">Улица</option>
       </select>
 
-  <button type="submit">Очистить</button>
+  <button onClick={handleClear}>Очистить</button>
 </form>
 
       {/* <input type="text" placeholder="Search..." onChange={handleSearchValueChange} /> */}

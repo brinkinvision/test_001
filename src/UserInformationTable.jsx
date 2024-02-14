@@ -83,13 +83,13 @@ const UserInformationTable = () => {
   const handleRowClick = (userInfo) => {
     setModalContent(
       <div>
-        <p>ФИО: {userInfo.firstName} {userInfo.lastName} {userInfo.maidenName}</p>
-        <p>Возраст: {userInfo.age}</p>
-        <p>Адрес: {userInfo.address.city}, {userInfo.address.address}</p>
-        <p>Рост: {userInfo.height}</p>
-        <p>Вес: {userInfo.weight}</p>
-        <p>Номер телефона: {userInfo.phone}</p>
-        <p>Email: {userInfo.email}</p>
+        <p><h2>{userInfo.firstName} {userInfo.lastName} {userInfo.maidenName}</h2></p>
+        <p><b>Возраст:</b> {userInfo.age}</p>
+        <p><b>Адрес:</b> {userInfo.address.city}, {userInfo.address.address}</p>
+        <p><b>Рост:</b> {userInfo.height}</p>
+        <p><b>Вес:</b> {userInfo.weight}</p>
+        <p><b>Номер телефона:</b> {userInfo.phone}</p>
+        <p><b>Email:</b> {userInfo.email}</p>
       </div>
     );
   };
@@ -162,7 +162,7 @@ const UserInformationTable = () => {
   <input
   type="text"
   id="searchInput"
-  placeholder="Search..."
+  placeholder=""
   onChange={handleSearchValueChange}
   value={searchValue}
 />
@@ -172,7 +172,7 @@ const UserInformationTable = () => {
         <option value="key">Искать по...</option>
         <option value="firstName">Имя</option>
         <option value="lastName">Фамилия</option>
-        <option value="maidenName">Отчество</option>
+        {/* <option value="maidenName">Отчество</option> */}
         <option value="age">Возраст</option>
         <option value="gender">Пол</option>
         <option value="phone">Номер телефона</option>
@@ -182,7 +182,7 @@ const UserInformationTable = () => {
 
   <button onClick={handleClear}>Очистить</button>
 </form>
-
+      <br />
       {/* <input type="text" placeholder="Search..." onChange={handleSearchValueChange} /> */}
       {/* <button onClick={handleSearch}>Search</button> */}
       <table>

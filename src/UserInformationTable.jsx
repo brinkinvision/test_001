@@ -69,7 +69,7 @@ const UserInformationTable = () => {
         } else if (searchColumn === 'address.city') { // Check specifically for the city
           return user.address.city.toLowerCase().includes(value.toLowerCase());
         } else if (searchColumn === 'address.address') { // Check specifically for the street
-          return user.address.address.toLowerCase().includes(value.toLowerCase());
+          return user.address.toLowerCase().includes(value.toLowerCase());
         } else {
           return user[searchColumn].toString().toLowerCase().includes(value.toLowerCase());
         }
@@ -125,8 +125,11 @@ const UserInformationTable = () => {
     const age = `${user.age}`;
     const gender = `${user.gender}`.toUpperCase();
     const phoneNumber = `${user.phone}`;
-    const address = `${user.address.city}`.toUpperCase();
-    return fullName.concat(` ` + age).concat(` ` + gender).concat(` ` + phoneNumber).concat(` ` + address).toUpperCase().includes(searchValue.toUpperCase());
+    const address_city = `${user.address.city}`.toUpperCase();
+    const address_street = `${user.address.address}`.toUpperCase();
+    return fullName.concat(` ` + age).concat(` ` + gender).concat(` ` + phoneNumber).concat(` ` + address_city).concat(` ` + address_street).toUpperCase().includes(searchValue.toUpperCase());
+    // const address = `${user.address.city}`.toUpperCase();
+    // return fullName.concat(` ` + age).concat(` ` + gender).concat(` ` + phoneNumber).concat(` ` + address).toUpperCase().includes(searchValue.toUpperCase());
   });
 
   return (

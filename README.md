@@ -1,6 +1,6 @@
 # Таблица с информацией о пользователях (React)
 
-[Демонстрация работы] (https://brinkinvision.github.io/test_001/)
+[**`Демонстрация работы`**] (https://brinkinvision.github.io/test_001/)
 
 Представляет собой приложение на React, отображающее таблицу с данными, получаемыми из https://dummyjson.com/users.
 

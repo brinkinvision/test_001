@@ -175,7 +175,7 @@ const UserInformationTable = () => {
           <option value={0}>ФИО</option>
           <option value={1}>Возраст</option>
           <option value={2}>Пол</option>
-          <option value={3}>Номер телефона</option>
+          {/* <option value={3}>Номер телефона</option> */}
           <option value={4}>Адрес</option>
         </select>
         <select onChange={handleSortDirectionChange} value={sortDirection}>

@@ -1,8 +1,19 @@
-# React + Vite
+# Таблица с информацией о пользователях (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Демонстрация работы] (https://brinkinvision.github.io/test_001/)
 
-Currently, two official plugins are available:
+Представляет собой приложение на React, отображающее таблицу с данными, получаемыми из https://dummyjson.com/users.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Реализованы:
+
+- возможность поиска по всей таблице (если фильтр для поиска не выбран);
+
+- возможность поиска по фильтрам;
+
+- возможность сортировки данных по всем столбцам;
+
+- появление модального окна при нажатии на любую строку таблицы с подробной информацией о пользователе;
+
+- изменение ширины столбцов таблицы.
+
+_Если необходимо отсортировать данные, полученные при поиске, то сначала нужно выбрать столбец для сортировки без выбора направления, а затем проводить поиск. После этого уже с выбранным столбцом для сортировки можно выбрать направление сортировки._
